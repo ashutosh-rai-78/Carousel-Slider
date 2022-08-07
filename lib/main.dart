@@ -11,6 +11,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final imagesPath = [
+    'images/gt.jpg',
+    'images/mustang_gt.jpg',
+    'images/mustang_i.jpg',
+    'images/mustang.jpg',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +26,27 @@ class _MyAppState extends State<MyApp> {
         title: Text('Carousel Slider'),
         centerTitle: true,
       ),
-      body: Container(),
+      body: SafeArea(
+        child: CarouselSlider(
+            options: CarouselOptions(autoPlay: true),
+            items: imagesPath.map((imagePath) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                    ),
+                    child: Image.asset(
+                      imagePath,
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
+              );
+            }).toList()),
+      ),
     ));
   }
 }
